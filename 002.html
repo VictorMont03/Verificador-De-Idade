@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verificador de idade</title>
+    <style>
+        body{
+            background: rgb(184, 62, 189);
+        }
+        header{
+            text-align: center;
+            color: white;
+            font: normal 10pt Arial;
+        }
+        section{
+            width: 500px;
+            height: 400px;
+            background: white;
+            border-radius: 10px;
+            margin: auto;
+        }
+        footer{
+            color: white;
+            font: normal 15pt Freestyle Script;
+            text-align: center;
+        }
+
+        /* Caso eu queira mudar o estilo no cod javascript so usar o comando id.style.oQueQuiserMudar = ComoQuerDeixar;*/
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Verifiacador de idade</h1>
+    </header>
+    <section>
+        <div id="nascimento">
+            <p>Ano de Nascimento <input type="number" id='ano'></p>
+            <p>Sexo
+                <input type='radio' name='radsex' id='mas'>
+                <label for='mas'>Masculino</label>
+                <input type="radio" name='radsex' id='fem'>
+                <label for='fem'>Feminino</label>
+            </p>
+            <input type="button" id='botao 'value='Verificar' onclick="verificar()">
+        </div>
+        <div id='res'> 
+        </div>
+    </section>
+    <footer>
+        <p>&copy; Victor`s Sites</p>
+    </footer>
+    <script>
+        function verificar(){
+            var data = new Date();
+            var agora = data.getFullYear();
+            var fano = window.document.getElementById('ano');
+            var res = window.document.getElementById('res');
+            if(fano.value.length == 0 || fano.value > agora){
+                window.alert('Dados Incorretos !')
+            }else{
+                var fsex = document.getElementsByName('radsex')
+                var idade = agora - Number(fano.value) 
+                //res.innerHTML = "idade é "+ idade;
+            } 
+            var genero = ''
+            var img = document.createElement('img')//cria uma tag dinamicamente
+            img.setAttribute('id', 'foto')//mesma coisa q ir no html e colocar la <img id="foto>"
+            if( fsex[0].checked ){
+                var genero = 'masculino'
+                if(idade<12){
+                    //criança
+                    img.setAttribute('src', 'criancapia2.png');
+                    document.body.style.background = 'grey'
+                }else if(idade < 23){
+                    img.setAttribute('src', 'adolepia2.png');
+                    document.body.style.background = 'green'
+                }else if(idade< 45){
+                    img.setAttribute('src', 'adultopia2.png');
+                    document.body.style.background = 'black'
+                }else if(idade>45){
+                    img.setAttribute('src', 'idosopia2.png');
+                    document.body.style.background = 'yellow'
+                }
+            }else if(fsex[1].checked){//pra dar uma expressao precisa sempre do if nao da só com o else
+                var genero = 'feminino'
+                if(idade<12){
+                    img.setAttribute('src', 'criancamenina2.png')
+                }else if(idade < 23){
+                    img.setAttribute('src', 'adolemenina2.png')
+                }else if(idade< 45){
+                    img.setAttribute('src', 'adultomenina2.png')
+                }else if(idade>45){
+                    img.setAttribute('src', 'idosomenina2.png')
+                }
+            }
+            res.innerHTML = 'Detectamos '+genero+' e '+idade+' anos';
+            res.style.textAlign = 'center'
+            res.appendChild(img);
+            
+        }
+    </script>
+</body>
+</html>
